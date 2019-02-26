@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+
+<div>
+  {% for product_row in products | batch(4, '&nbsp;')%}
+  <div class="row">
+    {% for product in product_row %}
+      <div class="col-sm-3">
+        <div class="thumbnail">
+            <img src="/static/product/images/{{product.image}}" style="max-height: 200px">
+            <div class="caption" style="text-align:center">
+              <p>{{product.name}}</p>
+              <p>{{product.description}}</p>
+              <p>{{product.price}}</p>
+              {% if product.name %}
+                <button onclick='addtoCart("{{product.id}}")'>Add to Cart</button>
+
+              {% endif %}
+            </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

@@ -4,22 +4,22 @@ from ecom.models import Base
 from ecom.models.custom_datatypes import UUID
 
 
-class Member(Base):
-    __tablename__ = 'subscription_members'
-    subscription_id = db.Column(
-        UUID, db.ForeignKey('subscriptions.id'), nullable=False)
-    subscription = db.relationship(
-        'Subscription', backref=db.backref('members'))
+class Account(Base):
+    __tablename__ = 'accounts'
+
     name = db.Column(db.String(80), nullable=False)
     mobile = db.Column(db.String(20), index=True)
-    email = db.Column(db.String(50))
+    email = db.Column(db.String(50), index=True)
     age = db.Column(db.Integer)
     gender = db.Column(db.Enum(Gender))
+    username = db.Column(db.String(50), index=True)
+    password =  db.Column(db.String(50))
+    shipping_address = db.Column(db.String(200))
 
 
     serializable = [
-        'id', 'subscription_id', 'name',
-        'mobile', 'email', 'age', 'gender', 'created_at', 'modified_at'
+        'id', 'name',
+        'mobile', 'email', 'age', 'gender', 'username', 'shipping_address', 'created_at', 'modified_at'
     ]
 
     def serialize(self):
