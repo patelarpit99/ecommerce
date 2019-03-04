@@ -5,3 +5,4 @@ requests
 uwsgi
 flask-redis
 Flask-OpenID
+razorpay
