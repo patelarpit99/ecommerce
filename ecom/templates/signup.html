@@ -1,6 +1,21 @@
 {% extends "base.html" %}
 
 {% block body %}
+
+{% if error_message %}
+<div class="col-sm-12 errormsg">
+    <p>{{error_message}}</p>
+</div>
+<br/>
+<br/>
+{% endif %}
+
+<div class="col-sm-6" style="margin-left:60px">
+    <button  class="button"><a href="/login">To Login Click Here</a></button>
+</div>
+<br/>
+<br/>
+<br/>
 <form  action="/signup" method="post">
   <div class="container">
     <h1>Sign Up</h1>

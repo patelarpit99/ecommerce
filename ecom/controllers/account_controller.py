@@ -17,10 +17,12 @@ class SignUpController(BaseController):
 
 class LoginController(BaseController):
     def post(self):
-    	print ("login controller")
-    	resp = AccountManager.login()
+    	print ("login controller-post")
+    	resp = AccountManager.login(request.form)
     	return resp
+
     def get(self):
-    	print ("login get")
-    	resp = AccountManager.login_form()
-    	return resp
+        print ("login controller-get")
+        resp = AccountManager.login_form()
+        return resp
+

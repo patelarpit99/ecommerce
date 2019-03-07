@@ -3,6 +3,7 @@ from flask import current_app, render_template, make_response, session
 from ecom.datastore import db,redis_store
 from ecom.exceptions import ServiceUnavailableException
 from ecom.models import Account
+from ecom.utils import general_util
 
 from flask import redirect, url_for
 class AccountManager():
@@ -48,22 +49,48 @@ class AccountManager():
 
 
     @staticmethod
+    def login_form():
+        print ("signup form")
+        category_map =  general_util.get_category_map()
+        resp = make_response(render_template('login.html',category_map=category_map))
+        resp.headers['Content-type'] = 'text/html; charset=utf-8'
+        return resp
+
+    @staticmethod
     def signup_form():
         print ("signup form")
-        resp = make_response(render_template('signup.html'))
+        category_map =  general_util.get_category_map()
+        resp = make_response(render_template('signup.html',category_map=category_map))
         resp.headers['Content-type'] = 'text/html; charset=utf-8'
         return resp
 
     @staticmethod
-    def login():
+    def login(data):
+        email = data.get("email")
+        password = data.get("psw")
+        category_map =  general_util.get_category_map()
         print ("login manager")
-        resp = make_response(render_template('login.html'))
+        query = Account.query.filter(Account.email == email)
+        account =  query.first()
+        success =  1
+        if not account:
+            error_message = email + " is not registered with us. Please retry or signup"
+            print (error_message)
+            success =  0
+        else:
+            if account.password != password:
+                error_message = "Invalid password for given email. Please retry"
+                print (error_message)
+                success =  0
+        if success:
+            print ("succcess")
+            session['name'] = account.name
+            session['email'] =  account.email
+            resp = make_response(render_template('index.html', category_map=category_map, name= session['name']))
+        else:
+            resp = make_response(render_template('signup.html',category_map=category_map, error_message=error_message))
+
         resp.headers['Content-type'] = 'text/html; charset=utf-8'
         return resp
 
-    @staticmethod
-    def login_form():
-        print ("login form")
-        resp = make_response(render_template('login.html'))
-        resp.headers['Content-type'] = 'text/html; charset=utf-8'
-        return resp
+
