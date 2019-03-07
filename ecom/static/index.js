@@ -10,8 +10,9 @@ function addtoCart(product_id){
 
     xhr.addEventListener("readystatechange", function () {
        if (this.readyState === 4) {
-           var ret = {};
-           ret =  JSON.parse(this.responseText);
+           //var ret = {};
+           //ret =  JSON.parse(this.responseText);
+           window.location.href = "/get_cart_items";
 
        }
     });

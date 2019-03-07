@@ -43,4 +43,65 @@
   </div>
 </div>
 
+<div class="container" style="padding:20px;">
+  <div class="row">
+      <p class="button">Featured Brands</p>
+      <br/>
+      <br/>
+      <div class="col-md-3">
+        <div class="thumbnail">
+          <a href="/static/brand/images/brand1.jpg" target="_blank">
+            <img src="/static/brand/images/brand1.jpg" style="max-height:200px">
+          </a>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="thumbnail">
+          <a href="/static/brand/images/brand2.jpg" target="_blank">
+            <img src="/static/brand/images/brand2.jpg" style="max-height:200px">
+          </a>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="thumbnail">
+          <a href="/static/brand/images/brand3.jpg" target="_blank">
+            <img src="/static/brand/images/brand3.jpg" style="max-height:200px">
+          </a>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="thumbnail">
+          <a href="/static/brand/images/brand4.jpg" target="_blank">
+            <img src="/static/brand/images/brand4.jpg" style="max-height:200px">
+          </a>
+        </div>
+      </div>
+  </div>
+
+</div>
+
+<div class="container" style="padding:20px;">
+  {% for subcategory in subcategory_product_map %}
+    <div class="row">
+      <p class="button">{{subcategory}}</p>
+      <br/>
+      <br/>
+      {% for product in subcategory_product_map[subcategory] %}
+        {% if loop.index <= 6 %}
+          <div class="col-md-2">
+            <div class="thumbnail">
+              <a href="/static/product/images/{{product.image}}" target="_blank">
+                <img src="/static/product/images/{{product.image}}" style="max-height:200px">
+                <div class="caption">
+                  <p>{{product.name}}</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>
+
 {% endblock %}

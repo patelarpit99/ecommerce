@@ -11,11 +11,8 @@ class DisplayManager():
     def display():
         print ("display manager")
         category_map =  general_util.get_category_map()
-        if  'name' in session:
-            print ("dddchurraaa")
-            print (session['name'])
-            resp = make_response(render_template('index.html', category_map=category_map, name= session['name']))
-        else:
-            resp = make_response(render_template('index.html', category_map=category_map))
+        subcategory_product_map = general_util.subcat_product_map()
+
+        resp = make_response(render_template('index.html', category_map=category_map, name= session.get('name'),subcategory_product_map=subcategory_product_map))
         resp.headers['Content-type'] = 'text/html; charset=utf-8'
         return resp

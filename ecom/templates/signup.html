@@ -9,6 +9,13 @@
 <br/>
 <br/>
 {% endif %}
+{% if status_message %}
+<div class="col-sm-12 statusmsg">
+    <p>{{status_message}}</p>
+</div>
+<br/>
+<br/>
+{% endif %}
 
 <div class="col-sm-6" style="margin-left:60px">
     <button  class="button"><a href="/login">To Login Click Here</a></button>
@@ -56,12 +63,9 @@
     <br>
 
     <div class="clearfix">
-      <button type="submit" class="signupbtn">Sign Up</button>
+      <button type="submit" class="button">Sign Up</button>
     </div>
   </div>
 </form>
 {% endblock %}
 
-
-
-    gender = db.Column(db.Enum(Gender))

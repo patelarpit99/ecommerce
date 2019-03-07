@@ -2,7 +2,7 @@ from flask import current_app, render_template, make_response, session
 
 from ecom.datastore import db,redis_store
 from ecom.exceptions import ServiceUnavailableException
-from ecom.models import Account
+from ecom.models import Account, Cart, Item, Product
 from ecom.utils import general_util
 
 from flask import redirect, url_for
@@ -41,9 +41,46 @@ class AccountManager():
             raise e
         session['name'] = account.name
         session['email'] =  account.email
+        ####################
+        #lets see if there is something in cart already
+        if 'cart' in session:
+            mycart = session['cart'] #list of item dicts
+            #item = {"product":{"name": product.name, "description": product.description,"price":product.price,
+            #       "image":product.image}, "quantity": 1,"price":product.price}
+
+
+            query = Account.query.filter(Account.email == session['email'])
+            account =  query.first()
+
+            cart = Cart()
+            cart.account_id = account.id
+
+            try:
+                db.session.add(cart)
+                db.session.commit()
+            except Exception as e:
+                print (e)
+                db.session.rollback()
+
+            for myitem in mycart:
+                item = Item()
+                item.cart = cart
+                item.product_id = myitem['product']['id']
+                item.quantity = 1
+                item.price = myitem['price']
+                try:
+                    db.session.add(item)
+                    db.session.commit()
+                except Exception as e:
+                    print (e)
+                    db.session.rollback()
+
+            session.pop('cart')
+
+        ####################
         print ("reached after this")
 
-        return redirect('/main')
+        return redirect('/')
 
 
 
@@ -52,7 +89,7 @@ class AccountManager():
     def login_form():
         print ("signup form")
         category_map =  general_util.get_category_map()
-        resp = make_response(render_template('login.html',category_map=category_map))
+        resp = make_response(render_template('login.html',category_map=category_map,name=session.get('name')))
         resp.headers['Content-type'] = 'text/html; charset=utf-8'
         return resp
 
@@ -60,7 +97,7 @@ class AccountManager():
     def signup_form():
         print ("signup form")
         category_map =  general_util.get_category_map()
-        resp = make_response(render_template('signup.html',category_map=category_map))
+        resp = make_response(render_template('signup.html',category_map=category_map,name=session.get('name')))
         resp.headers['Content-type'] = 'text/html; charset=utf-8'
         return resp
 
@@ -86,6 +123,41 @@ class AccountManager():
             print ("succcess")
             session['name'] = account.name
             session['email'] =  account.email
+            ####################
+            #lets see if there is something in cart already
+            if 'cart' in session:
+                mycart = session['cart'] #list of item dicts
+                #item = {"product":{"name": product.name, "description": product.description,"price":product.price,
+                #       "image":product.image}, "quantity": 1,"price":product.price}
+
+
+                query = Account.query.filter(Account.email == session['email'])
+                account =  query.first()
+
+                cart = Cart()
+                cart.account_id = account.id
+
+                try:
+                    db.session.add(cart)
+                    db.session.commit()
+                except Exception as e:
+                    print (e)
+                    db.session.rollback()
+
+                for myitem in mycart:
+                    item = Item()
+                    item.cart = cart
+                    item.product_id = myitem['product']['id']
+                    item.quantity = 1
+                    item.price = myitem['price']
+                    try:
+                        db.session.add(item)
+                        db.session.commit()
+                    except Exception as e:
+                        print (e)
+                        db.session.rollback()
+
+                session.pop('cart')
             resp = make_response(render_template('index.html', category_map=category_map, name= session['name']))
         else:
             resp = make_response(render_template('signup.html',category_map=category_map, error_message=error_message))

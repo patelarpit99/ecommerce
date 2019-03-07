@@ -10,21 +10,31 @@ from ecom.utils import general_util
 class PaymentManager():
     @staticmethod
     def pay():
+        category_map =  general_util.get_category_map()
         print ("payment manager pay")
-        query = Account.query.filter(Account.email == session['email'])
-        account =  query.first()
-        query = Cart.query.filter_by(account_id=account.id, active=True)
-        cart =  query.first()
-        print (cart.items)
-        value = 0
-        for item in cart.items:
-            value += item.price
-        amount =  int(value*100)
-        print ("checcccc")
-        print (amount)
-        resp = make_response(render_template('payment.html',name=account.name,email=account.email,contact=account.mobile,amount=amount))
-        resp.headers['Content-type'] = 'text/html; charset=utf-8'
-        return resp
+        if 'email' in session:
+            query = Account.query.filter(Account.email == session['email'])
+            account =  query.first()
+            query = Cart.query.filter_by(account_id=account.id, active=True)
+            cart =  query.first()
+            print (cart.items)
+            value = 0
+            for item in cart.items:
+                value += item.price
+            amount =  int(value*100)
+            print ("checcccc")
+            print (amount)
+            resp = make_response(render_template('payment.html',name=account.name,email=account.email,contact=account.mobile,amount=amount, category_map=category_map))
+            resp.headers['Content-type'] = 'text/html; charset=utf-8'
+            return resp
+        else:
+
+            status_message = "SignUp or Login to continue shopping"
+            resp = make_response(render_template('signup.html',category_map=category_map, status_message=status_message))
+            resp.headers['Content-type'] = 'text/html; charset=utf-8'
+            return resp
+
+
 
     @staticmethod
     def charge(data):
@@ -60,13 +70,13 @@ class PaymentManager():
                 db.session.rollback()
 
             message = "Congratulations !!! Your payment is successful"
-            resp = make_response(render_template('paymentresponse.html',message=message,success=1,category_map=category_map))
+            resp = make_response(render_template('paymentresponse.html',message=message,success=1,category_map=category_map,name=session.get('name')))
             resp.headers['Content-type'] = 'text/html; charset=utf-8'
             return resp
         else:
             print ("fsasasas")
             message = "Oops !!! Your payment got declined. Please retry payment"
-            resp = make_response(render_template('paymentresponse.html',message=message,category_map=category_map))
+            resp = make_response(render_template('paymentresponse.html',message=message,category_map=category_map,name=session.get('name')))
             resp.headers['Content-type'] = 'text/html; charset=utf-8'
             return resp
 
