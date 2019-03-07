@@ -6,3 +6,4 @@ uwsgi
 flask-redis
 Flask-OpenID
 razorpay
+facebook-sdk
