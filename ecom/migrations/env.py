@@ -83,7 +83,8 @@ def run_migrations_online():
             target_metadata=target_metadata,
             process_revision_directives=process_revision_directives,
             **current_app.extensions['migrate'].configure_args,
-            user_module_prefix='custom_datatypes.'
+            user_module_prefix='custom_datatypes.',
+            compare_type=True
         )
 
         with context.begin_transaction():

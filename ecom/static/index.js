@@ -12,7 +12,7 @@ function addtoCart(product_id){
        if (this.readyState === 4) {
            var ret = {};
            ret =  JSON.parse(this.responseText);
-           alert("Item added to cart")
+
        }
     });
     xhr.open("POST", url);

@@ -5,6 +5,7 @@ from ecom.exceptions import ServiceUnavailableException
 from ecom.models import Item, Cart, Account
 import json
 import razorpay
+from ecom.utils import general_util
 
 class PaymentManager():
     @staticmethod
@@ -27,6 +28,7 @@ class PaymentManager():
 
     @staticmethod
     def charge(data):
+        category_map =  general_util.get_category_map()
         print ("payment manager charge")
         print (data)
         client = razorpay.Client(auth=(current_app.config.get('RAZORPAY_KEY'), current_app.config.get('RAZORPAY_SECRET')))
@@ -48,14 +50,23 @@ class PaymentManager():
         print (resp['status'])
         if resp["status"] == "captured":
             print ("sycccecece")
+            cart.active = False
+            try:
+                print ("inserrr")
+                db.session.add(cart)
+                db.session.commit()
+            except Exception as e:
+                print (e)
+                db.session.rollback()
+
             message = "Congratulations !!! Your payment is successful"
-            resp = make_response(render_template('paymentresponse.html',message=message,success=1))
+            resp = make_response(render_template('paymentresponse.html',message=message,success=1,category_map=category_map))
             resp.headers['Content-type'] = 'text/html; charset=utf-8'
             return resp
         else:
             print ("fsasasas")
             message = "Oops !!! Your payment got declined. Please retry payment"
-            resp = make_response(render_template('paymentresponse.html',message=message))
+            resp = make_response(render_template('paymentresponse.html',message=message,category_map=category_map))
             resp.headers['Content-type'] = 'text/html; charset=utf-8'
             return resp
 
