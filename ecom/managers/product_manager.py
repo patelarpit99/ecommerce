@@ -1,4 +1,4 @@
-from flask import current_app, render_template, make_response
+from flask import current_app, render_template, make_response, session
 
 from ecom.datastore import db,redis_store
 from ecom.exceptions import ServiceUnavailableException
@@ -21,6 +21,6 @@ class ProductManager():
         print (display_products)
 
         category_map = eval(redis_store.get('category_map'))
-        resp = make_response(render_template('subcategory.html', products=display_products, category_map=category_map ))
+        resp = make_response(render_template('subcategory.html', products=display_products, category_map=category_map,name=session.get('name') ))
         resp.headers['Content-type'] = 'text/html; charset=utf-8'
         return resp

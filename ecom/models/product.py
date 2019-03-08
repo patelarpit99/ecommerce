@@ -14,7 +14,7 @@ class Product(Base):
     description = db.Column(db.Text(), nullable=True)
     price  = db.Column(db.Float(precision=2), nullable=False)
     available_item_count = db.Column(db.Integer)
-    image = db.Column(db.String(20), nullable=False)
+    image = db.Column(db.String(40), nullable=False)
 
 
 

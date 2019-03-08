@@ -60,3 +60,12 @@ VALUES ('9ebdbc3d-479f-4712-ba79-a2e2e07b8c84', 'Samsung S10 Series', '16MP+12MP
 	   ('2f3c7b1e-94f8-49bf-a6dd-c29e66934c35', 'Blackberry Evolve', '4GB | 64GB | 4000 mAH', 16990, 12, 'bbevolve.jpeg','e21cb0a9-1095-4dc7-8813-9ba752b1abad', NOW(), NOW()),
 	   ('e83cc7f6-bdb3-45e9-b10a-f77d8cdd0082', 'Lenovo K8 Note 4GB', '4GB | 4000mAh', 9200, 32, 'lenovok8.jpeg','e21cb0a9-1095-4dc7-8813-9ba752b1abad', NOW(), NOW());
 
+INSERT INTO products (id,name,description,price,available_item_count,image,product_subcategory_id,created_at,modified_at)
+VALUES ('f84178eb-4c49-4e2f-a7f9-a1076667baf9', 'FTC Fashion', 'Girls maxi', 567, 1000, 'girls_ftc_maxi.jpeg','3e955a48-651e-460a-9c25-dd2b8c59191f', NOW(), NOW()),
+	   ('0a5c410b-c197-4cc2-af3e-abe789859f2e', 'Ultra Trend', 'Girls Middy', 284, 500, 'girls_ultra_middy.jpeg','3e955a48-651e-460a-9c25-dd2b8c59191f', NOW(), NOW()),
+	   ('9f26c5c6-a2ee-4777-867b-fa77083d96f4', 'Najara Fashion', 'Girls Lehenga', 583, 100, 'girls_najara_lehenga.jpeg','3e955a48-651e-460a-9c25-dd2b8c59191f', NOW(), NOW()),
+	   ('0ba420b0-9947-4058-9f30-b2f52c69d197', 'Allen Solly Kids', 'Girls Mini', 424, 800, 'girls_allen_midi.jpeg','3e955a48-651e-460a-9c25-dd2b8c59191f', NOW(), NOW()),
+	   ('5b29baf5-d9ea-4110-847a-7232c1d8f1c0', 'FPlus Fashion', 'Girls Lehenga', 457, 321, 'girls_fplus_lehenga.jpeg','3e955a48-651e-460a-9c25-dd2b8c59191f', NOW(), NOW()),
+	   ('a7637b04-5045-4193-9f68-b97c9c5e8811', 'Celebrity Club', 'Girls Festive', 700, 12, 'girls_festive.jpeg','3e955a48-651e-460a-9c25-dd2b8c59191f', NOW(), NOW()),
+	   ('ef35ada1-ebef-4045-868b-03be75795610', 'Sini Mini', 'Casual Cotton Top', 16990, 12, 'sini_casual_top.jpeg','3e955a48-651e-460a-9c25-dd2b8c59191f', NOW(), NOW());
+

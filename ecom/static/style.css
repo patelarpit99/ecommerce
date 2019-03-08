@@ -32,3 +32,64 @@
 .dropdown:hover .dropdown-content {display: block;}
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+
+
+.razorpay-payment-button{
+  text-align: center;
+}
+.button, .loginbtn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+}
+.razorpay-payment-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  margin-left: 40px;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.errormsg{
+  color: red;
+  padding: 16px;
+  font-size: 16px;
+  margin-left: 60px;
+}
+.statusmsg{
+  color: green;
+  padding: 16px;
+  font-size: 16px;
+  margin-left: 60px;
+}
+.subcatlabel{
+  color: green;
+  padding: 16px;
+  font-size: 16px;
+  margin-left: 60px;
+}
